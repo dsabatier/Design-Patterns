@@ -1,12 +1,15 @@
 ﻿using System;
 
+/// <summary>
+/// Decorators allow for attaching additional responsibilities to an object at runtime.  Alternative to subclassing.
+/// </summary>
 namespace Design_Patterns.Decorator
 {
     public class Scope : GunDecorator
     {
         public Scope(GunChassis gun) : base(gun)
         {
-            _gun = gun;
+            
         }
 
         public override int GetAccuracy()
@@ -24,7 +27,7 @@ namespace Design_Patterns.Decorator
     {
         public Automatic(GunChassis gun) : base(gun)
         {
-            _gun = gun;
+            
         }
 
         public override int GetAccuracy()
@@ -35,6 +38,25 @@ namespace Design_Patterns.Decorator
         public override int GetRateOfFire()
         {
             return _gun.GetRateOfFire() + 5;
+        }
+    }
+
+    // does nothing to the gun performance
+    public class Paint : GunDecorator
+    {
+        public Paint(GunChassis gun) : base(gun)
+        {
+
+        }
+
+        public override int GetAccuracy()
+        {
+            return _gun.GetAccuracy();
+        }
+
+        public override int GetRateOfFire()
+        {
+            return _gun.GetRateOfFire();
         }
     }
 
@@ -77,7 +99,6 @@ namespace Design_Patterns.Decorator
 
         public GunDecorator(GunChassis gun)
         {
-            Console.WriteLine("decorating..");
             _gun = gun;
         }
     }
