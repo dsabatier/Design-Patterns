@@ -7,6 +7,21 @@
 
 namespace Design_Patterns.Factory
 {
+
+    /*  Client has-a AbstractProductA (Engine)
+        Client has-a AbstractProductB (Hull)
+        Client has-a AbstractFactory (ConfigurationFactory)
+        ** note the client only has abstractions! **
+
+        ConcreteFactoryA (AssaultConfig) is-a AbstractFactory (ConfigurationFactory)
+        ConcreteFactoryB (TransportConfig) is-a AbstractFactory (ConfigurationFactory)
+
+        ProductA1 (FastEngine) is-a AbstractProductA (Engine)
+        ProductA2 (SlowEngine) is-a AbstractProductA (Engine)
+
+        ProductB1 (FastEngine) is-a AbstractProductB (Hull)
+        ProductB2 (SlowEngine) is-a AbstractProductB (Hull) */
+
     // Client
     public class Spaceship
     {
