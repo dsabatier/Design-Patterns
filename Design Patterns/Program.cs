@@ -2,6 +2,7 @@
 using Design_Patterns.Strategy;
 using Design_Patterns.Observer;
 using Design_Patterns.Decorator;
+using Design_Patterns.Factory;
 using System;
 
 namespace Design_Patterns
@@ -71,6 +72,18 @@ namespace Design_Patterns
             sniper = new Automatic(sniper);
             Console.WriteLine(sniper.GetAccuracy());
             Console.WriteLine(sniper.GetRateOfFire());
+
+            // 4. factory
+
+            ConfigurationFactory assaultShipFactory = new AssaultConfigurationFactory();
+            Spaceship assaultShip = new AssaultShip(assaultShipFactory);
+            assaultShip.Activate();
+
+            ConfigurationFactory transportShipFactory = new HeavyTransportConfigurationFactory();
+            Spaceship transportShip = new HeavyTransportShip(transportShipFactory);
+            transportShip.Activate();
+            
+
         }
     }
 }
