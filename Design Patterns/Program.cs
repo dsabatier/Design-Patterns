@@ -3,6 +3,7 @@ using Design_Patterns.Strategy;
 using Design_Patterns.Observer;
 using Design_Patterns.Decorator;
 using Design_Patterns.AbstractFactory;
+using Design_Patterns.SingletonPattern;
 using System;
 
 namespace Design_Patterns
@@ -79,9 +80,16 @@ namespace Design_Patterns
             Spaceship assaultShip = new AssaultShip(assaultShipFactory);
             assaultShip.Activate();
 
+
             ConfigurationFactory transportShipFactory = new HeavyTransportConfigurationFactory();
             Spaceship transportShip = new HeavyTransportShip(transportShipFactory);
             transportShip.Activate();
+
+            // Fleet fleet = new Fleet(assaultShip, transportShip);
+
+            // 5. singleton
+
+            Singleton.Instance.DoAThing();
             
 
         }
