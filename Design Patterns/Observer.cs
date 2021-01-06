@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 
 /// <summary>
-/// Define a one to many relationship where 
+/// Define a one to many relationship that allow observers be notified of state changes
+/// and control their own subscription/unsubscription
 /// </summary>
 namespace Design_Patterns.Observer
 {
