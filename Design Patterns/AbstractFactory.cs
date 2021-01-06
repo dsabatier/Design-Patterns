@@ -5,7 +5,7 @@
 /// Abstract factory pattern provides a way to create groups of related objects without specifying their concrete classes
 /// </summary>
 
-namespace Design_Patterns.Factory
+namespace Design_Patterns.AbstractFactory
 {
 
     /*  Client has-a AbstractProductA (Engine)

@@ -2,7 +2,7 @@
 using Design_Patterns.Strategy;
 using Design_Patterns.Observer;
 using Design_Patterns.Decorator;
-using Design_Patterns.Factory;
+using Design_Patterns.AbstractFactory;
 using System;
 
 namespace Design_Patterns
