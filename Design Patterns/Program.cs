@@ -5,6 +5,7 @@ using Design_Patterns.Decorator;
 using Design_Patterns.AbstractFactory;
 using Design_Patterns.SingletonPattern;
 using Design_Patterns.Command;
+using Design_Patterns.Adapter;
 
 using System;
 
@@ -121,8 +122,28 @@ namespace Design_Patterns
             // use an item!
             royActionInvoker.PerformBasicAction();
 
-            // escape!
+            // escape! 
             royActionInvoker.PerformSpecialAction();
+
+            // 7. adapter pattern
+            Console.WriteLine("7");
+
+            Shop shop = new Shop();
+
+            OurShopItem ourShopItem = new OurShopItem();
+            NewVendorProduct newVendorProduct = new NewVendorProduct();
+
+            // add our shop item
+            shop.AddToCart(ourShopItem);
+            // we can't add the new vendor product using our cart because it does not match our interface
+            // shop.AddToCart(newVendorProduct);
+
+            // our adapter conforms to our interface
+            NewVendorProductAdapter newVendorProductAdapter = new NewVendorProductAdapter(newVendorProduct);
+            shop.AddToCart(newVendorProductAdapter);
+
+            shop.Checkout();
+
 
         }
     }
