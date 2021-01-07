@@ -7,7 +7,7 @@ namespace Design_Patterns.Command
     // Command
     public interface IBattleAction
     {
-        void PerformAction();
+        void Execute();
         // command pattern is often used in stacks or queues of commands
         // undo functionality is a common use
         // void Undo()
@@ -15,57 +15,59 @@ namespace Design_Patterns.Command
     }
 
     // ConcreteCommand
-    public class BasicAttackBattleAction : IBattleAction
+    // stores or calculates parameters and then performs some action, usually/sometimes/often on a receiver
+    public class AttackBattleAction : IBattleAction
     {
-        private BattleActionController _controller;
+        private Character _target;
+        private int _damage;
 
-        public BasicAttackBattleAction(BattleActionController controller)
+        public AttackBattleAction(Character target, int damage)
         {
-            _controller = controller;
+            _target = target;
+            _damage = damage;
         }
 
-        public void PerformAction()
+        public void Execute()
         {
-            Console.WriteLine("Basic attack!");
-        }
-    }
-
-    // ConcreteCommand
-    public class UseItemBattleAction : IBattleAction
-    {
-        private BattleActionController _controller;
-        private Item _item;
-
-        public UseItemBattleAction(BattleActionController controller, Item item)
-        {
-            _controller = controller;
-            _item = item;
-        }
-
-        public void PerformAction()
-        {
-            _item.Use();
+            _target.Damage(_damage);
+            Console.WriteLine($"Basic attack on {_target.Name}!");
         }
     }
 
     // ConcreteCommand
     public class EscapeBattleAction : IBattleAction
     {
-        private BattleActionController _controller;
+        Character _character;
 
-        public EscapeBattleAction(BattleActionController controller)
+        public EscapeBattleAction(Character character)
         {
-            _controller = controller;
+            _character = character;
         }
 
-        public void PerformAction()
+        public void Execute()
         {
-            Console.WriteLine("Escaping!");
+            _character.Escape();
         }
     }
 
-    // Invoker
-    public class BattleActionController
+    // ConcreteCommand
+    public class UseItemBattleAction : IBattleAction
+    {
+        private Item _item;
+
+        public UseItemBattleAction(Item item)
+        {
+            _item = item;
+        }
+
+        public void Execute()
+        {
+            _item.Use();
+        }
+    }
+
+    // Invoker - executes commands
+    public class BattleActionInvoker
     {
         private IBattleAction _basicAction;
         private IBattleAction _specialAction;
@@ -82,38 +84,45 @@ namespace Design_Patterns.Command
 
         public void PerformBasicAction()
         {
-            _basicAction.PerformAction();
+            _basicAction.Execute();
         }
 
         public void PerformSpecialAction()
         {
-            _specialAction.PerformAction();
+            _specialAction.Execute();
         }
     }
 
-    // Receiver
-    public class PartyMember
+    // Receiver - receiver carries out the hard work
+    public class Character
     {
-        private BattleActionController _actionController;
+        private int _health;
+        public string Name { get; private set; }
 
-        public PartyMember(BattleActionController actionController)
+        public Character(string name)
         {
-            _actionController = actionController;
+            Name = name;
         }
 
-        public void Battle()
+        public void Damage(int damage)
         {
-            _actionController.PerformBasicAction();
-            _actionController.PerformSpecialAction();
+            _health -= damage;
+            Console.WriteLine($"Took {damage} damage! {_health} hp left!");
+        }
+
+        public void Escape()
+        {
+            Console.WriteLine($"{Name} attempted a daring escape!");
         }
 
     }
 
+    // A different receiver
     public class Item
     {
         public void Use()
         {
-            Console.WriteLine("Item was used!");
+            Console.WriteLine("Used an item!");
         }
     }
 }

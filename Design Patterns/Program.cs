@@ -97,26 +97,33 @@ namespace Design_Patterns
             // 6. command pattern
             Console.WriteLine("6");
 
-            // set up controllers and actions for a party member
-            BattleActionController thiefActionController = new BattleActionController();
-            thiefActionController.SetBasicAction(
-                new BasicAttackBattleAction(thiefActionController));
-            thiefActionController.SetSpecialAction(
-                new EscapeBattleAction(thiefActionController));
+            // set up some receivers
+            Character roy = new Character("Roy");
+            Character targetDummy = new Character("Dummy");
 
-            // now we can create a thief..
-            PartyMember thief = new PartyMember(thiefActionController);
-            thief.Battle();
+            // set up invoker
+            BattleActionInvoker royActionInvoker = new BattleActionInvoker();
 
-            // .. and change his basic attack
-            thiefActionController.SetBasicAction(new UseItemBattleAction(thiefActionController, new Item()));
-            thief.Battle();
+            // some commands
+            royActionInvoker.SetBasicAction(
+                new AttackBattleAction(targetDummy, 10));
 
-            // we only ever need to know about the Battle method in the client (this file, in this example)
-            // so we can modify or create new actions without ever touching the class that would control
-            // when the thief needs to battle
+            royActionInvoker.SetSpecialAction(
+                new EscapeBattleAction(roy));
 
-            
+            // perform basic attack!
+            royActionInvoker.PerformBasicAction();
+
+            // equip an item
+            royActionInvoker.SetBasicAction(
+                new UseItemBattleAction(new Item()));
+
+            // use an item!
+            royActionInvoker.PerformBasicAction();
+
+            // escape!
+            royActionInvoker.PerformSpecialAction();
+
         }
     }
 }
