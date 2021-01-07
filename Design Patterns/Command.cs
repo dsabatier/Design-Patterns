@@ -8,6 +8,10 @@ namespace Design_Patterns.Command
     public interface IBattleAction
     {
         void PerformAction();
+        // command pattern is often used in stacks or queues of commands
+        // undo functionality is a common use
+        // void Undo()
+
     }
 
     // ConcreteCommand
