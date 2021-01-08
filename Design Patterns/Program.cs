@@ -6,6 +6,8 @@ using Design_Patterns.AbstractFactory;
 using Design_Patterns.SingletonPattern;
 using Design_Patterns.Command;
 using Design_Patterns.Adapter;
+using Design_Patterns.Facade;
+using Design_Patterns.TemplateMethod;
 
 using System;
 
@@ -77,7 +79,7 @@ namespace Design_Patterns
             Console.WriteLine(sniper.GetAccuracy());
             Console.WriteLine(sniper.GetRateOfFire());
 
-            // 4. factory
+            // 4. abstract factory
             Console.WriteLine("4");
             ConfigurationFactory assaultShipFactory = new AssaultConfigurationFactory();
             Spaceship assaultShip = new AssaultShip(assaultShipFactory);
@@ -144,7 +146,39 @@ namespace Design_Patterns
 
             shop.Checkout();
 
+            // 8. facade pattern
+            Console.WriteLine("7");
 
+            Eye leftEye = new Eye("Green");
+            Eye rightEye = new Eye("Green");
+            Mouth mouth = new Mouth();
+
+            // put all those subsystems into the Face (Facade)
+            // The face is asked to do work (express an emotion) and knows 
+            // how to call the subsystems methods to accomplish that
+            Face face = new Face(leftEye,rightEye, mouth);
+            face.ExpressJoy();
+            face.ExpressSad();
+            face.ExpressMurderousIntent();
+
+            // 9. Template Method
+
+            // create some combos
+            ComboAttack comboAttack = new BoxerCombo();
+            ComboAttack fencerAttack = new FencerCombo();
+
+            // execute them directly
+            comboAttack.Execute();
+            fencerAttack.Execute();
+
+            // add them to a collection
+            Queue<ComboAttack> comboAttacks = new Queue<ComboAttack>();
+            comboAttacks.Enqueue(comboAttack);
+            comboAttacks.Enqueue(fencerAttack);
+
+            // call any of them without caring about their implementation
+            comboAttacks.Dequeue().Execute();
+            comboAttacks.Dequeue().Execute();
         }
     }
 }
