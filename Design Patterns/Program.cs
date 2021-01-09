@@ -11,6 +11,7 @@ using Design_Patterns.TemplateMethod;
 using Design_Patterns.Iterator;
 using Design_Patterns.Composite;
 using Design_Patterns.StatePattern;
+using Design_Patterns.Proxy;
 
 using System;
 
@@ -23,7 +24,7 @@ namespace Design_Patterns
             // 1. strategy pattern
             Console.WriteLine("1");
             // note that all of these are treated as actors rather than their specific type
-            Actor knight = new Knight();
+            Actor knight = new Strategy.Knight();
             knight.Attack();
             knight.Defend();
 
@@ -38,7 +39,7 @@ namespace Design_Patterns
             // allows you to operate on objects without caring what they are doing, only that they can perform that operation
             List<Actor> actors = new List<Actor>()
             {
-                new Knight(),
+                new Strategy.Knight(),
                 new Wizard(),
                 new Archer()
             };
@@ -247,6 +248,21 @@ namespace Design_Patterns
             car.TurnKey(); // car is already on, state won't change
             car.Brake();
             car.TurnOff();
+
+            // 13. Proxy
+
+            IKnight trevor = new Proxy.Knight();
+            IKnight leeroy = new Proxy.Knight();
+            IKnight tony = new Proxy.KnightInTraining();
+
+            List<IKnight> _famousTrio = new List<IKnight>() { trevor, leeroy, tony };
+
+            foreach(IKnight trioMember in _famousTrio)
+            {
+                trioMember.DoTraining();
+                trioMember.DoLocalAdventure(); 
+                trioMember.DoEpicAdventure(); // tony won't go on the epic adventure that he was not ready for!
+            }
 
 
         }

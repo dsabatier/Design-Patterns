@@ -1,7 +1,7 @@
 ﻿using System;
 
 /// <summary>
-/// Facade provides a pattern to create a simpler interface from a much more complex one
+/// Use Facade to create a simpler interface from a much more complex one
 /// </summary>
 namespace Design_Patterns.Facade
 {
