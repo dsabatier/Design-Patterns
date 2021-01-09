@@ -8,6 +8,8 @@ using Design_Patterns.Command;
 using Design_Patterns.Adapter;
 using Design_Patterns.Facade;
 using Design_Patterns.TemplateMethod;
+using Design_Patterns.Iterator;
+using Design_Patterns.Composite;
 
 using System;
 
@@ -179,6 +181,61 @@ namespace Design_Patterns
             // call any of them without caring about their implementation
             comboAttacks.Dequeue().Execute();
             comboAttacks.Dequeue().Execute();
+
+            // 10. Iterator
+
+            IBag<Loot> goldBag = new GoldBag(10, true);
+            IIterator<Loot> goldBagIterator = goldBag.GetIterator();
+
+            IBag<Loot> equipmentBag = new EquipmentBag(
+                new EquipmentLoot[]
+                {
+                    new EquipmentLoot("Shirt"),
+                    new EquipmentLoot("Pants"),
+                    new EquipmentLoot("Shoes") });
+
+            IIterator<Loot> equipmentIterator = equipmentBag.GetIterator();
+
+            List<IIterator<Loot>> iterators = new List<IIterator<Loot>>()
+            { 
+                goldBagIterator, 
+                equipmentIterator
+            };
+
+            // just having fun with polymorphism
+            foreach (IIterator<Loot> iterator in iterators)
+            {
+                iterator.Current().Open();
+
+                // the important part is that we dont care how the collection is implemented, we just iterate through to the end
+                // the iterator could be pulling randomly or popping from a stack/queue and it doesn't matter
+                while (iterator.HasNext())
+                    iterator.Next().Open();
+            }
+
+            // 11. Composite
+
+            Node edmonton = new NodeComposite("Edmonton");
+            Node westEdmonton = new NodeComposite("West Edmonton");
+            Node aldergrove = new NodeLeaf("Aldergrove");
+            Node callingwood = new NodeLeaf("Callingwood");
+            Node southEdmonton = new NodeComposite("South Edmonton");
+            Node millwoods = new NodeLeaf("Mill Woods");
+            Node strathcona = new NodeLeaf("Strathcona");
+
+            edmonton.Add(westEdmonton);
+            edmonton.Add(southEdmonton);
+
+            westEdmonton.Add(aldergrove);
+            westEdmonton.Add(callingwood);
+
+            southEdmonton.Add(millwoods);
+            southEdmonton.Add(strathcona);
+
+            edmonton.Print(); // print all of edmonton areas and neighborhoods
+            westEdmonton.Print(); // only print west edmonton neighborhoods
+
+
         }
     }
 }
