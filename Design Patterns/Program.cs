@@ -12,6 +12,7 @@ using Design_Patterns.Iterator;
 using Design_Patterns.Composite;
 using Design_Patterns.StatePattern;
 using Design_Patterns.Proxy;
+using Design_Patterns.Flyweight;
 
 using System;
 
@@ -263,6 +264,28 @@ namespace Design_Patterns
                 trioMember.DoLocalAdventure(); 
                 trioMember.DoEpicAdventure(); // tony won't go on the epic adventure that he was not ready for!
             }
+
+            // 14: Flyweight
+
+            SpriteFactory spriteFactory = new SpriteFactory();
+
+            // even though we have all these millions of sprites, we have saved a ton memory
+            // because our factory reuses existing immutable colors and textures
+            List<Sprite> sprites = new List<Sprite>();
+            sprites.Add(spriteFactory.GetSprite("red", "spooky", false));
+            sprites.Add(spriteFactory.GetSprite("red", "scary", false));
+            sprites.Add(spriteFactory.GetSprite("blue", "spooky", false));
+            sprites.Add(spriteFactory.GetSprite("blue", "scary", false));
+            sprites.Add(spriteFactory.GetSprite("red", "scary", false));
+            sprites.Add(spriteFactory.GetSprite("red", "spooky", false));
+            sprites.Add(spriteFactory.GetSprite("red", "spooky", false));
+            sprites.Add(spriteFactory.GetSprite("red", "spooky", false));
+            sprites.Add(spriteFactory.GetSprite("red", "scary", false));
+            sprites.Add(spriteFactory.GetSprite("blue", "spooky", false));
+            sprites.Add(spriteFactory.GetSprite("blue", "scary", false));
+            sprites.Add(spriteFactory.GetSprite("red", "scary", false));
+            sprites.Add(spriteFactory.GetSprite("red", "spooky", false));
+            sprites.Add(spriteFactory.GetSprite("red", "spooky", false));
 
 
         }
