@@ -10,6 +10,7 @@ using Design_Patterns.Facade;
 using Design_Patterns.TemplateMethod;
 using Design_Patterns.Iterator;
 using Design_Patterns.Composite;
+using Design_Patterns.StatePattern;
 
 using System;
 
@@ -234,6 +235,18 @@ namespace Design_Patterns
 
             edmonton.Print(); // print all of edmonton areas and neighborhoods
             westEdmonton.Print(); // only print west edmonton neighborhoods
+            strathcona.Print(); // print just strathcona
+
+            // 12. State Pattern
+
+            Car car = new Car();
+            car.TurnKey();
+            car.Drive("North");
+            car.Brake();
+            car.Drive("West");
+            car.TurnKey(); // car is already on, state won't change
+            car.Brake();
+            car.TurnOff();
 
 
         }
